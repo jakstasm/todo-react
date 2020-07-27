@@ -1,13 +1,21 @@
 import React from "react";
 import shortid from "shortid";
 
-function TodoItem({ name, idx, description, removeTodo }) {
+/**
+ * TODO:
+ * - tutorial game: https://flexboxfroggy.com/
+ * - learn "flexbox" for css: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ */
+
+function TodoItem({ idx, name, description, removeTodo, updateName }) {
   return (
-    <div idx={idx}>
-      <h3>
-        {name} {idx}
-      </h3>
-      <button onClick={removeTodo}>-</button>
+    <div>
+      <label>Name:</label>
+      <input
+        onChange={(evt) => updateName(evt.target.value, idx)}
+        value={name}
+      />
+      <button onClick={() => removeTodo(idx)}>-</button>
     </div>
   );
 }
@@ -35,7 +43,8 @@ export default class Container extends React.Component {
 
   addTodo() {
     const newTodo = {
-      name: "RENAME_ME",
+      id: shortid.generate(),
+      name: "RENAME_ME" + shortid.generate(),
       description: "",
     };
     this.setState({
@@ -44,17 +53,15 @@ export default class Container extends React.Component {
   }
 
   removeTodo(idx) {
-    console.log(idx);
-    const newList = this.state.list.filter(
-      (item) => this.state.list.indexOf(item) !== idx
-    );
     this.setState({
-      list: newList,
+      list: this.state.list.filter((_, thisIdx) => thisIdx !== idx),
     });
   }
 
   updateName(name, idx) {
-    // todo
+    const { list } = this.state;
+    list[idx].name = name;
+    this.setState({ list });
   }
 
   updateDescription(description, idx) {
@@ -62,7 +69,6 @@ export default class Container extends React.Component {
   }
 
   render() {
-    console.log(this.state.list);
     return (
       <div>
         <Header addTodo={this.addTodo} />
@@ -70,10 +76,11 @@ export default class Container extends React.Component {
           return (
             <TodoItem
               idx={idx}
+              key={item.id}
               name={item.name}
               description={item.description}
-              key={shortid.generate()}
               removeTodo={this.removeTodo}
+              updateName={this.updateName}
             />
           );
         })}
