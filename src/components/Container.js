@@ -1,14 +1,21 @@
 import React from "react";
 import shortid from "shortid";
 
-function TodoItem({ name, description }) {
-  return <div>{name}</div>;
+function TodoItem({ name, idx, description, removeTodo }) {
+  return (
+    <div idx={idx}>
+      <h3>
+        {name} {idx}
+      </h3>
+      <button onClick={removeTodo}>-</button>
+    </div>
+  );
 }
 
 function Header({ addTodo }) {
   return (
     <div>
-      <h3>Goals and Dreams</h3>
+      <h1>Goals and Dreams</h1>
       <button onClick={addTodo}>+</button>
     </div>
   );
@@ -21,6 +28,9 @@ export default class Container extends React.Component {
       list: [],
     };
     this.addTodo = this.addTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
+    this.updateName = this.updateName.bind(this);
+    this.updateDescription = this.updateDescription.bind(this);
   }
 
   addTodo() {
@@ -34,7 +44,13 @@ export default class Container extends React.Component {
   }
 
   removeTodo(idx) {
-    // todo
+    console.log(idx);
+    const newList = this.state.list.filter(
+      (item) => this.state.list.indexOf(item) !== idx
+    );
+    this.setState({
+      list: newList,
+    });
   }
 
   updateName(name, idx) {
@@ -57,6 +73,7 @@ export default class Container extends React.Component {
               name={item.name}
               description={item.description}
               key={shortid.generate()}
+              removeTodo={this.removeTodo}
             />
           );
         })}
