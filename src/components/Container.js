@@ -7,15 +7,30 @@ import shortid from "shortid";
  * - learn "flexbox" for css: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
  */
 
-function TodoItem({ idx, name, description, removeTodo, updateName }) {
+function TodoItem({
+  idx,
+  name,
+  description,
+  removeTodo,
+  updateName,
+  updateDescription,
+}) {
   return (
     <div>
-      <label>Name:</label>
       <input
-        onChange={(evt) => updateName(evt.target.value, idx)}
+        placeholder="Insert task name"
+        onChange={(e) => updateName(e.target.value, idx)}
         value={name}
       />
       <button onClick={() => removeTodo(idx)}>-</button>
+      <br />
+      <input
+        placeholder="Insert description"
+        onChange={(e) => updateDescription(e.target.value, idx)}
+        value={description}
+      />
+      <br />
+      <br />
     </div>
   );
 }
@@ -25,6 +40,8 @@ function Header({ addTodo }) {
     <div>
       <h1>Goals and Dreams</h1>
       <button onClick={addTodo}>+</button>
+      <br />
+      <br />
     </div>
   );
 }
@@ -44,7 +61,7 @@ export default class Container extends React.Component {
   addTodo() {
     const newTodo = {
       id: shortid.generate(),
-      name: "RENAME_ME" + shortid.generate(),
+      name: "",
       description: "",
     };
     this.setState({
@@ -65,7 +82,9 @@ export default class Container extends React.Component {
   }
 
   updateDescription(description, idx) {
-    // todo
+    const { list } = this.state;
+    list[idx].description = description;
+    this.setState({ list });
   }
 
   render() {
@@ -81,6 +100,7 @@ export default class Container extends React.Component {
               description={item.description}
               removeTodo={this.removeTodo}
               updateName={this.updateName}
+              updateDescription={this.updateDescription}
             />
           );
         })}
