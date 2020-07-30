@@ -18,13 +18,10 @@ function TodoItem({
   return (
     <div>
       <input
-        placeholder="Insert task name"
         type="text"
-        onChange={(e) => {
-          e.preventDefault();
-          updateName(e.target.value, idx);
-        }}
         value={name}
+        placeholder="Insert task name"
+        onChange={(e) => updateName(e.target.value, idx)}
       />
       <button onClick={() => removeTodo(idx)}>-</button>
       <br />
@@ -32,7 +29,6 @@ function TodoItem({
         placeholder="Insert description"
         type="text"
         onChange={(e) => {
-          e.preventDefault();
           updateDescription(e.target.value, idx);
         }}
         value={description}
@@ -70,11 +66,27 @@ export default function Container() {
     setList(list.filter((_, thisIdx) => thisIdx !== idx));
   }
 
+  /**
+   * The bug here has to do with "value vs reference" issues and how React determines whether it should re-render.
+   * Note sure if you remember that I said the pattern I set up in the Class component within this method wasn't ideal.
+   * This bug is the reason I was worried of the pattern I set up there, only if you decided to go a different route.
+   * Class components and Functional components work a bit differently in this regard.
+   *
+   * Just know that this is a way to fix it,
+   * and that you can research "javascript value vs reference"
+   * to start understanding a bit better the change I made.
+   *
+   *
+   * Following this pattern will work as well to fix the updateDescription() function.
+   */
   function updateName(name, idx) {
-    list[idx].name = name;
-    setList(list);
+    const newList = [...list];
+    const newItem = list[idx];
 
-    console.log(list);
+    newItem.name = name;
+    newList[idx] = newItem;
+
+    setList(newList);
   }
 
   function updateDescription(description, idx) {
