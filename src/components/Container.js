@@ -1,12 +1,6 @@
 import React from "react";
 import shortid from "shortid";
 
-/**
- * TODO:
- * - tutorial game: https://flexboxfroggy.com/
- * - learn "flexbox" for css: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
- */
-
 function TodoItem({
   idx,
   name,
@@ -16,32 +10,35 @@ function TodoItem({
   updateDescription,
 }) {
   return (
-    <div>
+    <div className="item">
       <input
-        placeholder="Insert task name"
+        className="item-name"
+        placeholder="Task name"
         onChange={(e) => updateName(e.target.value, idx)}
         value={name}
       />
-      <button onClick={() => removeTodo(idx)}>-</button>
-      <br />
-      <input
-        placeholder="Insert description"
+      <button className="item-button" onClick={() => removeTodo(idx)}>
+        –
+      </button>
+
+      <textarea
+        type="textarea"
+        className="item-description"
+        placeholder="Add description"
         onChange={(e) => updateDescription(e.target.value, idx)}
         value={description}
       />
-      <br />
-      <br />
     </div>
   );
 }
 
 function Header({ addTodo }) {
   return (
-    <div>
+    <div className="Header">
       <h1>Goals and Dreams</h1>
-      <button onClick={addTodo}>+</button>
-      <br />
-      <br />
+      <button className="header-button" onClick={addTodo}>
+        +
+      </button>
     </div>
   );
 }
@@ -91,19 +88,21 @@ export default class Container extends React.Component {
     return (
       <div>
         <Header addTodo={this.addTodo} />
-        {this.state.list.map((item, idx) => {
-          return (
-            <TodoItem
-              idx={idx}
-              key={item.id}
-              name={item.name}
-              description={item.description}
-              removeTodo={this.removeTodo}
-              updateName={this.updateName}
-              updateDescription={this.updateDescription}
-            />
-          );
-        })}
+        <main className="content">
+          {this.state.list.map((item, idx) => {
+            return (
+              <TodoItem
+                idx={idx}
+                key={item.id}
+                name={item.name}
+                description={item.description}
+                removeTodo={this.removeTodo}
+                updateName={this.updateName}
+                updateDescription={this.updateDescription}
+              />
+            );
+          })}
+        </main>
       </div>
     );
   }
