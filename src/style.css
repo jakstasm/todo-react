@@ -1,0 +1,120 @@
+body {
+  min-height: 100%;
+  max-width: 600px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background: #355c7d; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #a4c06c,
+    #4a8973,
+    #355c7d
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #a4c06c,
+    #4a8973,
+    #355c7d
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+*:focus {
+  outline: none;
+}
+
+::selection {
+  color: white;
+  background: #a4c06c;
+}
+
+.Header {
+  background-color: lightgray;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  opacity: 0.5;
+  display: flex;
+  min-width: 600px;
+  max-height: fit-content;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.content {
+  margin-top: 90px;
+}
+
+button {
+  background-color: lightgray;
+  line-height: 0;
+  text-align: center;
+  max-height: 20px;
+  border-style: solid;
+  border-radius: 20%;
+  border-color: rgba(19, 19, 19, 0.708);
+  color: rgba(19, 19, 19, 0.708);
+  border-width: 1px;
+}
+button:hover {
+  background-color: darkgray;
+  color: lightgray;
+  border-color: lightgray;
+}
+
+.header-button {
+  padding: 16px 6px;
+  margin-left: 140px;
+  margin-right: 10px;
+  font-size: 36px;
+}
+
+.item {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  flex-wrap: wrap;
+  opacity: 0.5;
+  background-color: lightgray;
+  justify-content: flex-end;
+  align-content: baseline;
+  width: auto;
+  height: fit-content;
+  max-height: fit-content;
+  margin-top: 10px;
+}
+
+.item-button {
+  font-size: 18pt;
+  font-stretch: wider;
+  font-weight: bolder;
+  padding: 14px 6px;
+  width: 6%;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.item-name {
+  background-color: lightgray;
+  border-style: none;
+  width: 88%;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16pt;
+  text-overflow: ellipsis;
+}
+
+.item-description {
+  border-style: none;
+  width: 95%;
+  min-height: 4em;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  padding-left: 5px;
+  font-style: italic;
+  font-size: 14pt;
+}
