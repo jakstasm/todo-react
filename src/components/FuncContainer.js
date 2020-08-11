@@ -90,10 +90,13 @@ export default function Container() {
   }
 
   function updateDescription(description, idx) {
-    list[idx].description = description;
-    setList(list);
+    const newList = [...list];
+    const newItem = list[idx];
 
-    console.log(list);
+    newItem.description = description;
+    newList[idx] = newItem;
+
+    setList(newList);
   }
 
   return (
